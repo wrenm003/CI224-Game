@@ -13,10 +13,10 @@ GameObject go = GameObject("../data/ogre.md2");
 float rot = 0.0f;
 
 /*
- * Registering this function as the AddTimer callback is not
- * the best way of regulating the screen update.  However it's
- * easy for the moment.  This function will run in a separate
- * thread and may cause concurrency access issues.
+ * Registering this function as the AddTimer callback
+ * This function will run in a separate
+ * thread and may cause concurrency access issues if
+ * you access the OpenGL context from it.
  */
 Uint32 display(Uint32 interval, void *param) {
 	SDL_Event event;
