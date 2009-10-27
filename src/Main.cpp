@@ -9,7 +9,7 @@ using namespace std;
 
 #define RUN_GRAPHICS_DISPLAY 0x00;
 // Evil, evil global variable
-GameObject go = GameObject("/home/balor/Desktop/ogre.md2");
+GameObject go = GameObject("../data/ogre.md2");
 float rot = 0.0f;
 
 /*
