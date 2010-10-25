@@ -56,7 +56,7 @@ void GameObject::import_md2_asset(const string &filename) {
 	// Note: this is dangerous, we _really_
 	// should populate the whole structure as documented in
 	// http://tfc.duke.free.fr/coding/md2-specs-en.html
-	this->g_vertex_buffer_data = new GLfloat[this->num_vertices * 3]; // 3 points per vertex
+	this->g_vertex_buffer_data = new GLfloat[md2header->num_vertices * 3]; // 3 points per vertex
 
 	md2file.seekg(md2header->offset_frames, ios::beg);
 
