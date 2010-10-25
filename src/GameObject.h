@@ -4,6 +4,7 @@
  *  Created on: 03-Mar-2009
  *      Author: balor
  */
+#include <GL/glew.h>
 #include <GL/gl.h>
 #include <stdlib.h>
 #include <string>
@@ -17,12 +18,20 @@ using namespace std;
 
 class GameObject {
 public:
-	GameObject();
-	GameObject(const char * filename);
+	GameObject(const string &filename);
 	virtual ~GameObject();
 
 	virtual void draw();
 private:
+	/* functions */
+	void import_md2_asset(const string &filename);
+	int make_resources();
+	GLchar* shader_file_contents(const string &filename, GLint * length);
+	GLuint make_buffer(GLenum target, const void *buffer_data, GLsizei buffer_size);
+	GLuint make_shader(GLenum type, const char *filename);
+	GLuint make_program(GLuint vertex_shader, GLuint fragment_shader);
+
+	
 	/* MD2 header from http://tfc.duke.free.fr/coding/md2-specs-en.html */
 	struct md2_header_t
 	{
@@ -66,10 +75,21 @@ private:
 	/* Vector */
 	typedef float vec3_t[3];
 
-	vec3_t * vertices;
+	//vec3_t * vertices;
 	int num_vertices;
 	md2_triangle_t * triangles;
 	int num_triangles;
+
+	/* For keeping track of OpenGL VBOs */
+	GLuint vertex_buffer, element_buffer;
+	GLuint vertex_shader, fragment_shader, program;
+	GLint position;
+	GLint rotate_x;
+
+	GLfloat * g_vertex_buffer_data;
+	GLushort * g_element_buffer_data;
+	GLfloat rotate_x_theta;
+
 };
 
 #endif /* GAMEOBJECT_H_ */

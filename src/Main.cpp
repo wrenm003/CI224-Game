@@ -1,22 +1,24 @@
+#define GLEW_STATIC // Easier debugging
+#include <GL/glew.h>
 #include <GL/gl.h>
-#include <GL/glu.h>
 #include <SDL/SDL.h>
 #include <iostream>
+#include <fstream>
 
 #include "GameObject.h"
 
 using namespace std;
 
 #define RUN_GRAPHICS_DISPLAY 0x00;
-// Evil, evil global variable
-GameObject go = GameObject("../data/ogre.md2");
-float rot = 0.0f;
+
+string filename = "../data/ogre.md2";
+GameObject * go;
 
 /*
- * Registering this function as the AddTimer callback
- * This function will run in a separate
- * thread and may cause concurrency access issues if
- * you access the OpenGL context from it.
+ * SDL timers run in separate threads.  In the timer thread
+ * push an event onto the event queue.  This event signifies
+ * to call display() from the thread in which the OpenGL 
+ * context was created.
  */
 Uint32 display(Uint32 interval, void *param) {
 	SDL_Event event;
@@ -29,17 +31,13 @@ Uint32 display(Uint32 interval, void *param) {
 }
 
 void display() {
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+  glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+  glClear(GL_COLOR_BUFFER_BIT);
 
-	// Reset The Current Modelview Matrix
-	glLoadIdentity();
-	glTranslatef(0.0f, 0.0f, -100.0f);
-	glRotatef(rot, 0.5f, 0.5f, 0.5f);
-	glColor3f(1.0f,1.0f,1.0f); // Set colour to white
-	go.draw();
-	rot += 0.5f;
-	// Don't forget to swap the buffers (I did)
-	SDL_GL_SwapBuffers();
+  go->draw();
+  
+  // Don't forget to swap the buffers
+  SDL_GL_SwapBuffers();
 }
 
 int main(int argc, char ** argv) {
@@ -63,23 +61,17 @@ int main(int argc, char ** argv) {
 	if (!(surf = SDL_SetVideoMode(width, height, colour_depth, SDL_OPENGL))) {
 			cout << "Failed to initialise video mode: " << SDL_GetError() << endl;
 			SDL_Quit();
-		}
+	}
 
-	// Set the state of our new OpenGL context
-	glViewport(0,0,(GLsizei)(width),(GLsizei)(height));
-	glMatrixMode(GL_PROJECTION);
-	glLoadIdentity();
+	// Initialise GLEW - an easy way to ensure OpenGl 2.0+
+	// The *must* be done after we have set the video mode - otherwise we have no OpenGL context.
+	glewInit();
+	if (!glewIsSupported("GL_VERSION_2_0")) {
+	  cerr<< "OpenGL 2.0 not available" << endl;
+	  return 1;
+	}
 
-	gluPerspective(45.0f,(GLfloat)(width)/(GLfloat)(height),1.0f,1000.0f);
-	glMatrixMode(GL_MODELVIEW);
-	glLoadIdentity();
-
-	glShadeModel(GL_SMOOTH);							// Enable Smooth Shading
-	glClearColor(0.0f, 0.0f, 0.0f, 0.5f);				// Black Background
-	glClearDepth(1.0f);									// Depth Buffer Setup
-	glEnable(GL_DEPTH_TEST);							// Enables Depth Testing
-	glDepthFunc(GL_LEQUAL);								// The Type Of Depth Testing To Do
-	glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);	// Really Nice Perspective Calculations
+	go = new GameObject(filename);
 
 	// Call the function "display" every delay milliseconds
 	SDL_AddTimer(delay, display, NULL);
@@ -89,7 +81,8 @@ int main(int argc, char ** argv) {
 	while (SDL_WaitEvent(&event)) {
 			switch (event.type) {
 			case SDL_QUIT:
-				SDL_Quit();
+			  SDL_Quit();
+			  break;
 			case SDL_USEREVENT:
 				display();
 			}
