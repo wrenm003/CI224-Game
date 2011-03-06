@@ -38,6 +38,8 @@ TriangularPyramidAsset::TriangularPyramidAsset() {
   g_element_buffer_data[8] = 2;
   g_element_buffer_data[10] = 0;
   g_element_buffer_data[11] = 1;
+
+  make_resources();
 }
 
 TriangularPyramidAsset::~TriangularPyramidAsset() {
