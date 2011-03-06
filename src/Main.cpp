@@ -74,7 +74,10 @@ int main(int argc, char ** argv) {
 	  return 1;
 	}
 
-	pyramid = new TriangularPyramidAsset();
+	LinearInterpolator * li = new LinearInterpolator(*(new Vector3(0.0, 0.0, 0.0)), *(new Vector3(0.0, 0.0, 10.0)), 2.0f, 60);
+	TriangularPyramidAsset * p = new TriangularPyramidAsset();
+	p->setInterpolator(li);
+	pyramid = (GameAsset *) p;
 
 	// Call the function "display" every delay milliseconds
 	SDL_AddTimer(delay, display, NULL);

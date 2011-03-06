@@ -44,9 +44,26 @@ TriangularPyramidAsset::TriangularPyramidAsset() {
 
 TriangularPyramidAsset::~TriangularPyramidAsset() {
   // TODO: do something nice here.
+  this->li = NULL;
 }
 
 void TriangularPyramidAsset::update() {
   // update z-component
   translate[2]+= 1.0f;
+}
+
+void TriangularPyramidAsset::setInterpolator(LinearInterpolator * li) {
+  this->li = li;
+}
+
+void TriangularPyramidAsset::draw() {
+  if(NULL != this->li) {
+    // goto start + (count * delta)
+    Vector3 v = li->update();
+    translate[0] = v.getX();
+    translate[1] = v.getY();
+    translate[2] = v.getZ();
+  }
+  cout << "Drawing pyramid at (" << translate[0] << " ," << translate[1] << " ," << translate[2] << ")" << endl;
+  GameAsset::draw();
 }
