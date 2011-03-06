@@ -5,14 +5,14 @@
 #include <iostream>
 #include <fstream>
 
-#include "GameObject.h"
+#include "GameAsset.h"
 
 using namespace std;
 
 #define RUN_GRAPHICS_DISPLAY 0x00;
 
 string filename = "data/ogre.md2";
-GameObject * go;
+GameAsset * go;
 
 /*
  * SDL timers run in separate threads.  In the timer thread
@@ -71,7 +71,7 @@ int main(int argc, char ** argv) {
 	  return 1;
 	}
 
-	go = new GameObject(filename);
+	go = new GameAsset(filename);
 
 	// Call the function "display" every delay milliseconds
 	SDL_AddTimer(delay, display, NULL);

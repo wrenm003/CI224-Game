@@ -13,13 +13,13 @@
 
 using namespace std;
 
-#ifndef GAMEOBJECT_H_
-#define GAMEOBJECT_H_
+#ifndef GAMEASSET_H_
+#define GAMEASSET_H_
 
-class GameObject {
+class GameAsset {
 public:
-	GameObject(const string &filename);
-	virtual ~GameObject();
+	GameAsset(const string &filename);
+	virtual ~GameAsset();
 
 	virtual void draw();
 private:
@@ -92,4 +92,4 @@ private:
 
 };
 
-#endif /* GAMEOBJECT_H_ */
+#endif /* GAMEASSET_H_ */

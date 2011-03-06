@@ -5,9 +5,9 @@
  *      Author: balor
  */
 
-#include "GameObject.h"
+#include "GameAsset.h"
 
-GameObject::GameObject(const string &filename) {
+GameAsset::GameAsset(const string &filename) {
         rotate_x_theta=0;
   
         import_md2_asset(filename);
@@ -15,13 +15,13 @@ GameObject::GameObject(const string &filename) {
 
 	// make the objects to display
 	if(0 == make_resources()) {
-	  cout << "Can't make the required OpenGL resources for GameObject." << endl;
+	  cout << "Can't make the required OpenGL resources for GameAsset." << endl;
 	  // TODO: exit nicely here
 	}
 
 }
 
-void GameObject::import_md2_asset(const string &filename) {
+void GameAsset::import_md2_asset(const string &filename) {
 	ifstream md2file;
 	md2file.open(filename.c_str(), ios::in|ios::binary);
 
@@ -96,11 +96,11 @@ void GameObject::import_md2_asset(const string &filename) {
 	free(md2header);
 }
 
-GameObject::~GameObject() {
+GameAsset::~GameAsset() {
 	// TODO Auto-generated destructor stub
 }
 
-void GameObject::draw() {
+void GameAsset::draw() {
   glUseProgram(program);
 
   glUniform1f(rotate_x, rotate_x_theta++);
@@ -130,7 +130,7 @@ void GameObject::draw() {
 /*
  * Functions for general purpose stuff
  */
-GLchar * GameObject::shader_file_contents(const string &filename, GLint * length)
+GLchar * GameAsset::shader_file_contents(const string &filename, GLint * length)
 {
   ifstream input_file;
   input_file.open(filename.c_str(), ios::in);
@@ -150,7 +150,7 @@ GLchar * GameObject::shader_file_contents(const string &filename, GLint * length
 /*
  * Functions for creating OpenGL objects:
  */
-GLuint GameObject::make_buffer(
+GLuint GameAsset::make_buffer(
     GLenum target,
     const void *buffer_data,
     GLsizei buffer_size
@@ -162,7 +162,7 @@ GLuint GameObject::make_buffer(
     return buffer;
 }
 
-GLuint GameObject::make_shader(GLenum type, const char *filename)
+GLuint GameAsset::make_shader(GLenum type, const char *filename)
 {
     GLint length;
     GLchar *source = shader_file_contents(filename, &length);
@@ -186,7 +186,7 @@ GLuint GameObject::make_shader(GLenum type, const char *filename)
     return shader;
 }
 
-GLuint GameObject::make_program(GLuint vertex_shader, GLuint fragment_shader)
+GLuint GameAsset::make_program(GLuint vertex_shader, GLuint fragment_shader)
 {
     GLint program_ok;
 
@@ -208,7 +208,7 @@ GLuint GameObject::make_program(GLuint vertex_shader, GLuint fragment_shader)
 /*
  * Load and create all of our resources:
  */
-int GameObject::make_resources(void)
+int GameAsset::make_resources(void)
 {
     vertex_buffer = make_buffer(
         GL_ARRAY_BUFFER,
