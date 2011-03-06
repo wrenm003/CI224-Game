@@ -18,6 +18,9 @@ Md2Asset::~Md2Asset() {
   // TODO: clean up
 }
 
+void Md2Asset::update() {
+}
+
 void Md2Asset::import_md2_asset(const string &filename) {
 	ifstream md2file;
 	md2file.open(filename.c_str(), ios::in|ios::binary);

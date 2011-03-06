@@ -17,6 +17,7 @@ public:
 	Md2Asset(const string &filename);
 	virtual ~Md2Asset();
 
+	virtual void update();
 private:
 	void import_md2_asset(const string &filename);
 		/* MD2 header from http://tfc.duke.free.fr/coding/md2-specs-en.html */

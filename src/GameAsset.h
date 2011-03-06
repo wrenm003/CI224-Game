@@ -22,6 +22,7 @@ public:
 	virtual ~GameAsset();
 
 	virtual void draw();
+	virtual void update()=0;
 
 protected:
 	/* functions */

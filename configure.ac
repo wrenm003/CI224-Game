@@ -4,6 +4,9 @@ AC_CONFIG_SRCDIR([configure.ac])
 AC_CONFIG_HEADERS([config.h])     # not even really needed
 AC_PROG_CXX                        # or AC_PROG_CXX
 
+# Check if the vectormath headers exist
+AC_CHECK_HEADER([vectormath/cpp/vectormath_aos.h])
+
 # Find the following libraries on the system
 PKG_CHECK_MODULES([gl], [gl])
 PKG_CHECK_MODULES([glew], [glew])
