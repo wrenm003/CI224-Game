@@ -11,7 +11,7 @@ using namespace std;
 
 #define RUN_GRAPHICS_DISPLAY 0x00;
 
-string filename = "../data/ogre.md2";
+string filename = "data/ogre.md2";
 GameObject * go;
 
 /*

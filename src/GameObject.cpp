@@ -223,14 +223,14 @@ int GameObject::make_resources(void)
 
     vertex_shader = make_shader(
         GL_VERTEX_SHADER,
-        "hello-gl.v.glsl"
+        "shaders/hello-gl.v.glsl"
     );
     if (vertex_shader == 0)
         return 0;
 
     fragment_shader = make_shader(
         GL_FRAGMENT_SHADER,
-        "hello-gl.f.glsl"
+        "shaders/hello-gl.f.glsl"
     );
     if (fragment_shader == 0)
         return 0;
