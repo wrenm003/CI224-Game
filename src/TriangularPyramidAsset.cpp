@@ -47,4 +47,6 @@ TriangularPyramidAsset::~TriangularPyramidAsset() {
 }
 
 void TriangularPyramidAsset::update() {
+  // update z-component
+  translate[2]+= 1.0f;
 }

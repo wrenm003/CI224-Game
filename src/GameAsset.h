@@ -35,12 +35,14 @@ protected:
 	/* For keeping track of OpenGL VBOs */
 	GLuint vertex_buffer, element_buffer;
 	GLuint vertex_shader, fragment_shader, program;
-	GLint position;
-	GLint rotate_x;
+	GLint position_attrib;
+	GLint rotate_x_uniform;
+	GLint translate_uniform;
 
 	GLfloat * g_vertex_buffer_data;
 	GLushort * g_element_buffer_data;
 	GLfloat rotate_x_theta;
+	GLfloat  translate[3];
 
 	// How many vertices/triangles in this model
 	int num_vertices;

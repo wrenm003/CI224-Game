@@ -3,6 +3,7 @@
 attribute vec3 position;
 
 uniform float rotate_x_theta;
+uniform vec3 tx;
 
 mat4 view_frustum(
     float angle_of_view,
@@ -41,7 +42,7 @@ mat4 rotate_x(float theta)
 void main()
 {
     gl_Position = view_frustum(radians(45.0), 4.0/3.0, 0.5, 100.0)
-    		* translate(0.0, 0.0, 50.0)
+    		* translate(tx.x, tx.y, tx.z)
 		* rotate_x(radians(rotate_x_theta))
     		* vec4(position.x, position.y, position.z, 1.0) ;
 }

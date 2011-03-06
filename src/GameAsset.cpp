@@ -8,7 +8,9 @@
 #include "GameAsset.h"
 
 GameAsset::GameAsset() {
-  // Do nothing
+  translate[0]=0.0f;
+  translate[1]=0.0f;
+  translate[2]=0.0f;
 }
 
 GameAsset::~GameAsset() {
@@ -18,18 +20,19 @@ GameAsset::~GameAsset() {
 void GameAsset::draw() {
   glUseProgram(program);
 
-  glUniform1f(rotate_x, rotate_x_theta++);
+  glUniform1f(rotate_x_uniform, rotate_x_theta++);
+  glUniform3f(translate_uniform, translate[0], translate[1], translate[2]);
 
   glBindBuffer(GL_ARRAY_BUFFER, vertex_buffer);
   glVertexAttribPointer(
-			position,                         /* attribute */
+			position_attrib,                  /* attribute */
 			3,                                /* size */
 			GL_FLOAT,                         /* type */
 			GL_FALSE,                         /* normalized? */
 			0,                                /* stride */
 			(void*)0                          /* array buffer offset */
 			);
-  glEnableVertexAttribArray(position);
+  glEnableVertexAttribArray(position_attrib);
   
   glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, element_buffer);
   glDrawElements(
@@ -39,7 +42,7 @@ void GameAsset::draw() {
 		 (GLvoid*) 0
 		 );
   
-  glDisableVertexAttribArray(position);
+  glDisableVertexAttribArray(position_attrib);
 }
 
 /*
@@ -154,8 +157,9 @@ int GameAsset::make_resources(void)
     if (program == 0)
         return 0;
 
-    position = glGetAttribLocation(program, "position");    
-    rotate_x = glGetUniformLocation(program, "rotate_x_theta");
+    position_attrib = glGetAttribLocation(program, "position");    
+    rotate_x_uniform = glGetUniformLocation(program, "rotate_x_theta");
+    translate_uniform = glGetUniformLocation(program, "tx");
 
     return 1;
 }
