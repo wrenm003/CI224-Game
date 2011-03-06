@@ -6,6 +6,7 @@
 #include <fstream>
 
 #include "GameAsset.h"
+#include "Md2Asset.h"
 
 using namespace std;
 
@@ -71,7 +72,7 @@ int main(int argc, char ** argv) {
 	  return 1;
 	}
 
-	go = new GameAsset(filename);
+	go = new Md2Asset(filename);
 
 	// Call the function "display" every delay milliseconds
 	SDL_AddTimer(delay, display, NULL);
