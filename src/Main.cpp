@@ -74,7 +74,7 @@ int main(int argc, char ** argv) {
 	  return 1;
 	}
 
-	LinearInterpolator * li = new LinearInterpolator(*(new Vector3(0.0, 0.0, 0.0)), *(new Vector3(0.0, 0.0, 10.0)), 2.0f, 60);
+	LinearInterpolator * li = new LinearInterpolator(*(new Vector3(-5.0, 5.0, 10.0)), *(new Vector3(5.0, -5.0, 10.0)), 2.0f, 60);
 	TriangularPyramidAsset * p = new TriangularPyramidAsset();
 	p->setInterpolator(li);
 	pyramid = (GameAsset *) p;

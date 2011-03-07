@@ -1,6 +1,7 @@
 #include "TriangularPyramidAsset.h"
 
 TriangularPyramidAsset::TriangularPyramidAsset() {
+  this->li = NULL;
   // A default "unit" triangular pyramid
   num_vertices = 4;
   num_triangles = 4;
@@ -44,7 +45,6 @@ TriangularPyramidAsset::TriangularPyramidAsset() {
 
 TriangularPyramidAsset::~TriangularPyramidAsset() {
   // TODO: do something nice here.
-  this->li = NULL;
 }
 
 void TriangularPyramidAsset::update() {
