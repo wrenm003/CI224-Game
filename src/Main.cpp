@@ -75,7 +75,7 @@ int main(int argc, char ** argv) {
 	  return 1;
 	}
 
-	Vector3 launch(70.7f, 70.7f, 0.0f);
+	Vector3 launch(5.0f, 70.7f, 0.0f);
 	BallisticInterpolator * li = new BallisticInterpolator(launch, 60);
 	TriangularPyramidAsset * p = new TriangularPyramidAsset(-100, 0, 100);
 	p->setInterpolator(li);
