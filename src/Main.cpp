@@ -8,6 +8,7 @@
 #include "GameAsset.h"
 #include "Md2Asset.h"
 #include "TriangularPyramidAsset.h"
+#include "LinearInterpolator.h"
 
 using namespace std;
 

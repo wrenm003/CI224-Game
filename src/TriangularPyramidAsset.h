@@ -1,5 +1,5 @@
 #include "GameAsset.h"
-#include "LinearInterpolator.h"
+#include "IInterpolator.h"
 
 #ifndef TRIANGULARPYRAMIDASSET_H_
 #define TRIANGULARPYRAMIDASSET_H_
@@ -11,9 +11,9 @@ class TriangularPyramidAsset : public GameAsset {
 
   virtual void update();
   virtual void draw();
-  void setInterpolator(LinearInterpolator * li);
+  void setInterpolator(IInterpolator * li);
  private:
-  LinearInterpolator *li;
+  IInterpolator *li;
 };
 
 #endif // TRIANGULARPYRAMIDASSET_H_

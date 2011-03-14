@@ -52,7 +52,7 @@ void TriangularPyramidAsset::update() {
   translate[2]+= 1.0f;
 }
 
-void TriangularPyramidAsset::setInterpolator(LinearInterpolator * li) {
+void TriangularPyramidAsset::setInterpolator(IInterpolator * li) {
   this->li = li;
 }
 
