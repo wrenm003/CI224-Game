@@ -1,7 +1,12 @@
 #include "TriangularPyramidAsset.h"
 
 TriangularPyramidAsset::TriangularPyramidAsset() {
+  TriangularPyramidAsset(0, 0, 0);
+}
+
+TriangularPyramidAsset::TriangularPyramidAsset(float x, float y, float z) {
   this->li = NULL;
+  this->pos = new Point3(x, y, z);
   // A default "unit" triangular pyramid
   num_vertices = 4;
   num_triangles = 4;
@@ -40,6 +45,10 @@ TriangularPyramidAsset::TriangularPyramidAsset() {
   g_element_buffer_data[10] = 0;
   g_element_buffer_data[11] = 1;
 
+  translate[0] = x;
+  translate[1] = y;
+  translate[2] = z;
+
   make_resources();
 }
 
@@ -48,8 +57,12 @@ TriangularPyramidAsset::~TriangularPyramidAsset() {
 }
 
 void TriangularPyramidAsset::update() {
-  // update z-component
-  translate[2]+= 1.0f;
+  if(NULL != this->li) {
+    Vector3 v = li->update();
+    translate[0] = (*pos+v).getX();
+    translate[1] = (*pos+v).getY();
+    translate[2] = (*pos+v).getZ();
+  }
 }
 
 void TriangularPyramidAsset::setInterpolator(IInterpolator * li) {
@@ -57,13 +70,6 @@ void TriangularPyramidAsset::setInterpolator(IInterpolator * li) {
 }
 
 void TriangularPyramidAsset::draw() {
-  if(NULL != this->li) {
-    // goto start + (count * delta)
-    Vector3 v = li->update();
-    translate[0] = v.getX();
-    translate[1] = v.getY();
-    translate[2] = v.getZ();
-  }
   cout << "Drawing pyramid at (" << translate[0] << " ," << translate[1] << " ," << translate[2] << ")" << endl;
   GameAsset::draw();
 }

@@ -8,7 +8,7 @@
 #include "GameAsset.h"
 #include "Md2Asset.h"
 #include "TriangularPyramidAsset.h"
-#include "LinearInterpolator.h"
+#include "BallisticInterpolator.h"
 
 using namespace std;
 
@@ -75,8 +75,9 @@ int main(int argc, char ** argv) {
 	  return 1;
 	}
 
-	LinearInterpolator * li = new LinearInterpolator(*(new Vector3(-5.0, 5.0, 10.0)), *(new Vector3(5.0, -5.0, 10.0)), 2.0f, 60);
-	TriangularPyramidAsset * p = new TriangularPyramidAsset();
+	Vector3 launch(70.7f, 70.7f, 0.0f);
+	BallisticInterpolator * li = new BallisticInterpolator(launch, 60);
+	TriangularPyramidAsset * p = new TriangularPyramidAsset(-100, 0, 100);
 	p->setInterpolator(li);
 	pyramid = (GameAsset *) p;
 
