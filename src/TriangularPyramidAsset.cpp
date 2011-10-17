@@ -25,9 +25,9 @@ TriangularPyramidAsset::TriangularPyramidAsset(float x, float y, float z) {
   g_vertex_buffer_data[7] = -0.5;
   g_vertex_buffer_data[8] = -0.5;
 
-  g_vertex_buffer_data[0] = 0.0;
-  g_vertex_buffer_data[1] = 0.5;
-  g_vertex_buffer_data[2] = 0.0;
+  g_vertex_buffer_data[9] = 0.0;
+  g_vertex_buffer_data[10] = 0.5;
+  g_vertex_buffer_data[11] = 0.0;
 
   g_element_buffer_data[0] = 0;
   g_element_buffer_data[1] = 1;
@@ -41,7 +41,7 @@ TriangularPyramidAsset::TriangularPyramidAsset(float x, float y, float z) {
   g_element_buffer_data[7] = 0;
   g_element_buffer_data[8] = 3;
 
-  g_element_buffer_data[8] = 2;
+  g_element_buffer_data[9] = 2;
   g_element_buffer_data[10] = 0;
   g_element_buffer_data[11] = 1;
 

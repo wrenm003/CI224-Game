@@ -77,8 +77,8 @@ int main(int argc, char ** argv) {
 
 	Vector3 launch(5.0f, 70.7f, 0.0f);
 	BallisticInterpolator * li = new BallisticInterpolator(launch, 60);
-	TriangularPyramidAsset * p = new TriangularPyramidAsset(-100, 0, 100);
-	p->setInterpolator(li);
+	TriangularPyramidAsset * p = new TriangularPyramidAsset(0, 0, 10);
+	//p->setInterpolator(li);
 	pyramid = (GameAsset *) p;
 
 	// Call the function "display" every delay milliseconds
