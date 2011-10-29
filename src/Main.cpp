@@ -77,7 +77,7 @@ int main(int argc, char ** argv) {
 
 	Vector3 launch(5.0f, 70.7f, 0.0f);
 	BallisticInterpolator * li = new BallisticInterpolator(launch, 60);
-	TriangularPyramidAsset * p = new TriangularPyramidAsset(0, 0, 10);
+	TriangularPyramidAsset * p = new TriangularPyramidAsset(0, 0, 3);
 	//p->setInterpolator(li);
 	pyramid = (GameAsset *) p;
 

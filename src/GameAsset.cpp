@@ -7,10 +7,22 @@
 
 #include "GameAsset.h"
 
-GameAsset::GameAsset() {
+void GameAsset::common_init() {
   translate[0]=0.0f;
   translate[1]=0.0f;
   translate[2]=0.0f;
+}
+
+GameAsset::GameAsset() {
+  common_init();
+  this->v_shader = "shaders/hello-gl.v.glsl";
+  this->f_shader = "shaders/hello-gl.f.glsl";
+}
+
+GameAsset::GameAsset(string & v_shader, string & f_shader) {
+  common_init();
+  this->v_shader = v_shader;
+  this->f_shader = f_shader;
 }
 
 GameAsset::~GameAsset() {
@@ -141,14 +153,14 @@ int GameAsset::make_resources(void)
 
     vertex_shader = make_shader(
         GL_VERTEX_SHADER,
-        "shaders/hello-gl.v.glsl"
+        this->v_shader.c_str()
     );
     if (vertex_shader == 0)
         return 0;
 
     fragment_shader = make_shader(
         GL_FRAGMENT_SHADER,
-        "shaders/hello-gl.f.glsl"
+        this->f_shader.c_str()
     );
     if (fragment_shader == 0)
         return 0;

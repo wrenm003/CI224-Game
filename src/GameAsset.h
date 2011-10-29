@@ -19,6 +19,7 @@ using namespace std;
 class GameAsset {
 public:
 	GameAsset();
+	GameAsset(string & v_shader, string & f_shader);
 	virtual ~GameAsset();
 
 	virtual void draw();
@@ -47,6 +48,11 @@ protected:
 	// How many vertices/triangles in this model
 	int num_vertices;
 	int num_triangles;
+
+ private:
+	void common_init(); // because we don't have delegating constructors yet (http://gcc.gnu.org/projects/cxx0x.html)
+	string v_shader;
+	string f_shader;
 };
 
 #endif /* GAMEASSET_H_ */
