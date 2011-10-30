@@ -1,6 +1,11 @@
 #include "TriangularPyramidAsset.h"
 
-TriangularPyramidAsset::TriangularPyramidAsset() {
+TriangularPyramidAsset::TriangularPyramidAsset() 
+  : GameAsset(
+	      string("shaders/hello-gl.v.glsl")
+	      , string("shaders/hello-gl.f.glsl")
+	      )
+{
   TriangularPyramidAsset(0, 0, 0);
 }
 

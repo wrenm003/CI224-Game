@@ -19,7 +19,7 @@ GameAsset::GameAsset() {
   this->f_shader = "shaders/hello-gl.f.glsl";
 }
 
-GameAsset::GameAsset(string & v_shader, string & f_shader) {
+GameAsset::GameAsset(const string & v_shader, const string & f_shader) {
   common_init();
   this->v_shader = v_shader;
   this->f_shader = f_shader;

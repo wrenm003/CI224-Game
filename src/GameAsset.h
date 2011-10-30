@@ -19,7 +19,7 @@ using namespace std;
 class GameAsset {
 public:
 	GameAsset();
-	GameAsset(string & v_shader, string & f_shader);
+	GameAsset(const string & v_shader, const string & f_shader);
 	virtual ~GameAsset();
 
 	virtual void draw();
