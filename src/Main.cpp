@@ -4,6 +4,7 @@
 #include <SDL/SDL.h>
 #include <iostream>
 #include <fstream>
+#include <vector>
 
 #include "GameAsset.h"
 #include "Md2Asset.h"
@@ -15,7 +16,7 @@ using namespace std;
 #define RUN_GRAPHICS_DISPLAY 0x00;
 
 string filename = "data/ogre.md2";
-GameAsset * pyramid;
+vector<GameAsset *> assets;
 
 /*
  * SDL timers run in separate threads.  In the timer thread
@@ -37,8 +38,10 @@ void display() {
   glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
   glClear(GL_COLOR_BUFFER_BIT);
 
-  pyramid->update();
-  pyramid->draw();
+  for(std::vector<GameAsset *>::iterator it = assets.begin(); it != assets.end(); ++it) {
+    (*it)->update();
+    (*it)->draw();
+  }
   
   // Don't forget to swap the buffers
   SDL_GL_SwapBuffers();
@@ -79,7 +82,7 @@ int main(int argc, char ** argv) {
 	BallisticInterpolator * li = new BallisticInterpolator(launch, 60);
 	TriangularPyramidAsset * p = new TriangularPyramidAsset(0, 0, 3);
 	//p->setInterpolator(li);
-	pyramid = (GameAsset *) p;
+	assets.push_back(p);
 
 	// Call the function "display" every delay milliseconds
 	SDL_AddTimer(delay, display, NULL);
