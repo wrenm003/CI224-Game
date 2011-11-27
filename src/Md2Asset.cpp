@@ -1,7 +1,6 @@
 #include "Md2Asset.h"
 
 Md2Asset::Md2Asset(const string &filename) {
-        rotate_x_theta=0;
   
         import_md2_asset(filename);
 

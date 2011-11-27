@@ -11,7 +11,10 @@
 #include <iostream>
 #include <fstream>
 
+#include "vectormath/scalar/cpp/vectormath_aos.h"
+
 using namespace std;
+using namespace Vectormath::Aos;
 
 #ifndef GAMEASSET_H_
 #define GAMEASSET_H_
@@ -37,14 +40,13 @@ protected:
 	GLuint vertex_buffer, element_buffer;
 	GLuint vertex_shader, fragment_shader, program;
 	GLint position_attrib;
-	GLint rotate_x_uniform;
-	GLint translate_uniform;
+	GLint mv_matrix_uniform;
 
 	GLfloat * g_vertex_buffer_data;
 	GLushort * g_element_buffer_data;
-	GLfloat rotate_x_theta;
-	GLfloat  translate[3];
 
+	Matrix4 mv_matrix;
+      
 	// How many vertices/triangles in this model
 	int num_vertices;
 	int num_triangles;

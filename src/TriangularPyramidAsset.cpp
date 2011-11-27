@@ -50,9 +50,7 @@ TriangularPyramidAsset::TriangularPyramidAsset(float x, float y, float z) {
   g_element_buffer_data[10] = 0;
   g_element_buffer_data[11] = 1;
 
-  translate[0] = x;
-  translate[1] = y;
-  translate[2] = z;
+  mv_matrix = mv_matrix.translation( Vector3(x, y, z));
 
   make_resources();
 }
@@ -62,12 +60,6 @@ TriangularPyramidAsset::~TriangularPyramidAsset() {
 }
 
 void TriangularPyramidAsset::update() {
-  if(NULL != this->li) {
-    Vector3 v = li->update();
-    translate[0] = (*pos+v).getX();
-    translate[1] = (*pos+v).getY();
-    translate[2] = (*pos+v).getZ();
-  }
 }
 
 void TriangularPyramidAsset::setInterpolator(IInterpolator * li) {
@@ -75,6 +67,5 @@ void TriangularPyramidAsset::setInterpolator(IInterpolator * li) {
 }
 
 void TriangularPyramidAsset::draw() {
-  cout << "Drawing pyramid at (" << translate[0] << " ," << translate[1] << " ," << translate[2] << ")" << endl;
   GameAsset::draw();
 }

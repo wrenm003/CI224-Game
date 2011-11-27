@@ -8,9 +8,7 @@
 #include "GameAsset.h"
 
 void GameAsset::common_init() {
-  translate[0]=0.0f;
-  translate[1]=0.0f;
-  translate[2]=0.0f;
+  mv_matrix = Matrix4::identity();
 }
 
 GameAsset::GameAsset() {
@@ -32,8 +30,14 @@ GameAsset::~GameAsset() {
 void GameAsset::draw() {
   glUseProgram(program);
 
-  glUniform1f(rotate_x_uniform, rotate_x_theta++);
-  glUniform3f(translate_uniform, translate[0], translate[1], translate[2]);
+  // horribe unpacking
+  GLfloat foo [16] = {
+    mv_matrix.getElem(0,0), mv_matrix.getElem(0,1), mv_matrix.getElem(0,2), mv_matrix.getElem(0,3),
+    mv_matrix.getElem(1,0), mv_matrix.getElem(1,1), mv_matrix.getElem(1,2), mv_matrix.getElem(1,3),
+    mv_matrix.getElem(2,0), mv_matrix.getElem(2,1), mv_matrix.getElem(2,2), mv_matrix.getElem(2,3),
+    mv_matrix.getElem(3,0), mv_matrix.getElem(3,1), mv_matrix.getElem(3,2), mv_matrix.getElem(3,3)
+  };
+  glUniformMatrix4fv(mv_matrix_uniform, 1, false, foo);
 
   glBindBuffer(GL_ARRAY_BUFFER, vertex_buffer);
   glVertexAttribPointer(
@@ -169,9 +173,8 @@ int GameAsset::make_resources(void)
     if (program == 0)
         return 0;
 
-    position_attrib = glGetAttribLocation(program, "position");    
-    rotate_x_uniform = glGetUniformLocation(program, "rotate_x_theta");
-    translate_uniform = glGetUniformLocation(program, "tx");
+    position_attrib = glGetAttribLocation(program, "position");
+    mv_matrix_uniform = glGetUniformLocation(program, "mv_matrix");
 
     return 1;
 }
