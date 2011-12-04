@@ -17,9 +17,9 @@ void Camera::lookAt(const Point3 &eye, const Point3 &point, const Vector3 &up) {
 	camera = new Matrix4(camera->lookAt(eye, point, up));
 }
 
-void Camera::setCamera(Camera & c) {
+void Camera::setCamera(const Matrix4 & m) {
   Matrix4 * tmp = camera;
-  camera = new Matrix4(c.getCameraM());
+  camera = new Matrix4(m);
   delete (tmp);
 }
 

@@ -98,6 +98,29 @@ int main(int argc, char ** argv) {
 			  break;
 			case SDL_USEREVENT:
 				display();
+				break;
+			case SDL_KEYUP:
+			  Camera::getInstance().setCamera(Matrix4::identity());
+			  break;
+			case SDL_KEYDOWN:
+			  Matrix4 camera = Camera::getInstance().getCameraM();
+			  switch(event.key.keysym.sym){
+			  case SDLK_LEFT:
+			    Camera::getInstance().setCamera((camera * Matrix4::rotationY(5.0/180.0)));
+			    break;
+			  case SDLK_RIGHT:
+			    Camera::getInstance().setCamera(camera * Matrix4::rotationY(-5.0/180.0) );
+			    break;
+			  case SDLK_UP:
+			    Camera::getInstance().setCamera(camera * Matrix4::translation(Vector3(0.0, 0.0, -1.0)) );
+			    break;
+			  case SDLK_DOWN:
+			    Camera::getInstance().setCamera(camera * Matrix4::translation(Vector3(0.0, 0.0, 1.0)) );
+			    break;
+			  default:
+			    break;
+			  }
+			  break;
 			}
 	}
 }
