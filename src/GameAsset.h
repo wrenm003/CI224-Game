@@ -12,6 +12,7 @@
 #include <fstream>
 
 #include "vectormath/scalar/cpp/vectormath_aos.h"
+#include "Camera.h"
 
 using namespace std;
 using namespace Vectormath::Aos;

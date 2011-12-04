@@ -30,6 +30,8 @@ GameAsset::~GameAsset() {
 void GameAsset::draw() {
   glUseProgram(program);
 
+  mv_matrix = Camera::getInstance().getCameraM() * mv_matrix;
+
   // horribe unpacking
   GLfloat foo [16] = {
     mv_matrix.getElem(0,0), mv_matrix.getElem(0,1), mv_matrix.getElem(0,2), mv_matrix.getElem(0,3),

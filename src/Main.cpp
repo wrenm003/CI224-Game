@@ -10,6 +10,7 @@
 #include "Md2Asset.h"
 #include "TriangularPyramidAsset.h"
 #include "BallisticInterpolator.h"
+#include "Camera.h"
 
 using namespace std;
 
