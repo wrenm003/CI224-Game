@@ -83,6 +83,7 @@ int main(int argc, char ** argv) {
 	TriangularPyramidAsset * p = new TriangularPyramidAsset(0, 0, 3);
 	//p->setInterpolator(li);
 	assets.push_back(p);
+	assets.push_back( new TriangularPyramidAsset(-1.0, 0, 3));
 
 	// Call the function "display" every delay milliseconds
 	SDL_AddTimer(delay, display, NULL);
