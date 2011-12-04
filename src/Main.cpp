@@ -39,8 +39,23 @@ void display() {
   glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
   glClear(GL_COLOR_BUFFER_BIT);
 
+  // This O(n + n^2 + n) sequence of loops is written for clarity,
+  // not efficiency
   for(std::vector<GameAsset *>::iterator it = assets.begin(); it != assets.end(); ++it) {
     (*it)->update();
+  }
+
+  for(std::vector<GameAsset *>::iterator i = assets.begin(); i != assets.end(); ++i) {
+    for(std::vector<GameAsset *>::iterator j = assets.begin(); j != assets.end(); ++j) {
+      if(*i != *j && (*i)->collidesWith(**j)) {
+	cout << "We have a collision"  << endl;
+      }
+    }
+  }
+
+  
+
+  for(std::vector<GameAsset *>::iterator it = assets.begin(); it != assets.end(); ++it) {
     (*it)->draw();
   }
   

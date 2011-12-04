@@ -13,6 +13,7 @@
 
 #include "vectormath/scalar/cpp/vectormath_aos.h"
 #include "Camera.h"
+#include "BoundingBox.h"
 
 using namespace std;
 using namespace Vectormath::Aos;
@@ -25,6 +26,9 @@ public:
 	GameAsset();
 	GameAsset(const string & v_shader, const string & f_shader);
 	virtual ~GameAsset();
+
+	bool collidesWith(GameAsset & a);
+	BoundingBox & getBoundingBox();
 
 	virtual void draw();
 	virtual void update()=0;
@@ -56,6 +60,7 @@ protected:
 	void common_init(); // because we don't have delegating constructors yet (http://gcc.gnu.org/projects/cxx0x.html)
 	string v_shader;
 	string f_shader;
+	BoundingBox * bbox;
 };
 
 #endif /* GAMEASSET_H_ */

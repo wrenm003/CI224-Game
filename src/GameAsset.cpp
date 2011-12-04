@@ -9,6 +9,7 @@
 
 void GameAsset::common_init() {
   mv_matrix = Matrix4::identity();
+  bbox = new BoundingBox(Point3(0,0,0), 1.0, 1.0, 1.0); // unit cube
 }
 
 GameAsset::GameAsset() {
@@ -25,6 +26,14 @@ GameAsset::GameAsset(const string & v_shader, const string & f_shader) {
 
 GameAsset::~GameAsset() {
 	// TODO Auto-generated destructor stub
+}
+
+bool GameAsset::collidesWith(GameAsset & a ) {
+  return bbox->collidesWith(a.getBoundingBox());
+}
+
+BoundingBox & GameAsset::getBoundingBox() {
+  return *bbox;
 }
 
 void GameAsset::draw() {
