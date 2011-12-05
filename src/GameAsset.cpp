@@ -29,11 +29,7 @@ GameAsset::~GameAsset() {
 }
 
 bool GameAsset::collidesWith(GameAsset & a ) {
-  return bbox->collidesWith(a.getBoundingBox());
-}
-
-BoundingBox & GameAsset::getBoundingBox() {
-  return *bbox;
+  return bbox->collidesWith((*a.bbox));
 }
 
 void GameAsset::draw() {

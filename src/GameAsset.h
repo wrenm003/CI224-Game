@@ -28,7 +28,6 @@ public:
 	virtual ~GameAsset();
 
 	bool collidesWith(GameAsset & a);
-	BoundingBox & getBoundingBox();
 
 	virtual void draw();
 	virtual void update()=0;
