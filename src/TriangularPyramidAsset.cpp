@@ -51,6 +51,9 @@ TriangularPyramidAsset::TriangularPyramidAsset(float x, float y, float z) {
   g_element_buffer_data[11] = 1;
 
   mv_matrix = mv_matrix.translation( Vector3(x, y, z));
+  BoundingBox * bbox_tmp = bbox;
+  bbox = new BoundingBox(Point3(x, y, z), 1.0, 1.0, 1.0);
+  delete(bbox);
 
   make_resources();
 }

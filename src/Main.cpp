@@ -53,8 +53,6 @@ void display() {
     }
   }
 
-  
-
   for(std::vector<GameAsset *>::iterator it = assets.begin(); it != assets.end(); ++it) {
     (*it)->draw();
   }

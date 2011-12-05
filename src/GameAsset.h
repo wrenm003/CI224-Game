@@ -56,11 +56,12 @@ protected:
 	int num_vertices;
 	int num_triangles;
 
+	BoundingBox * bbox;
+
  private:
 	void common_init(); // because we don't have delegating constructors yet (http://gcc.gnu.org/projects/cxx0x.html)
 	string v_shader;
 	string f_shader;
-	BoundingBox * bbox;
 };
 
 #endif /* GAMEASSET_H_ */
