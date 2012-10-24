@@ -42,19 +42,19 @@ void display() {
 
   // This O(n + n^2 + n) sequence of loops is written for clarity,
   // not efficiency
-  for(shared_ptr<GameAsset> it : assets) {
+  for(auto it : assets) {
     it->update();
   }
 
-  for(shared_ptr<GameAsset> i : assets) {
-    for(shared_ptr<GameAsset> j : assets) {
+  for(auto i : assets) {
+    for(auto j : assets) {
       if((i != j) && i->collidesWith(*j)) {
 	cout << "We have a collision"  << endl;
       }
     }
   }
 
-  for(shared_ptr<GameAsset> it : assets) {
+  for(auto it : assets) {
     it->draw();
   }
   
