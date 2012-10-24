@@ -10,6 +10,7 @@
 #include <string>
 #include <iostream>
 #include <fstream>
+#include <memory>
 
 #include "vectormath/scalar/cpp/vectormath_aos.h"
 #include "Camera.h"
@@ -55,7 +56,7 @@ protected:
 	int num_vertices;
 	int num_triangles;
 
-	BoundingBox * bbox;
+	shared_ptr<BoundingBox> bbox;
 
  private:
 	void common_init(); // because we don't have delegating constructors yet (http://gcc.gnu.org/projects/cxx0x.html)

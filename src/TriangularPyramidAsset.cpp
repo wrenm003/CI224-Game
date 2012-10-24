@@ -10,8 +10,8 @@ TriangularPyramidAsset::TriangularPyramidAsset()
 }
 
 TriangularPyramidAsset::TriangularPyramidAsset(float x, float y, float z) {
-  this->li = NULL;
-  this->pos = new Point3(x, y, z);
+  this->li = nullptr;
+  this->pos = shared_ptr<Point3>(new Point3(x, y, z));
   // A default "unit" triangular pyramid
   num_vertices = 4;
   num_triangles = 4;
@@ -51,9 +51,8 @@ TriangularPyramidAsset::TriangularPyramidAsset(float x, float y, float z) {
   g_element_buffer_data[11] = 1;
 
   mv_matrix = mv_matrix.translation( Vector3(x, y, z));
-  BoundingBox * bbox_tmp = bbox;
-  bbox = new BoundingBox(Point3(x, y, z), 1.0, 1.0, 1.0);
-  delete(bbox_tmp);
+  bbox.reset();
+  bbox = shared_ptr<BoundingBox>(new BoundingBox(Point3(x, y, z), 1.0, 1.0, 1.0));
 
   make_resources();
 }
@@ -65,8 +64,8 @@ TriangularPyramidAsset::~TriangularPyramidAsset() {
 void TriangularPyramidAsset::update() {
 }
 
-void TriangularPyramidAsset::setInterpolator(IInterpolator * li) {
-  this->li = li;
+void TriangularPyramidAsset::setInterpolator(shared_ptr<IInterpolator> li) {
+  this->li.swap(li);
 }
 
 void TriangularPyramidAsset::draw() {

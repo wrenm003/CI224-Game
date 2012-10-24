@@ -9,7 +9,7 @@
 
 void GameAsset::common_init() {
   mv_matrix = Matrix4::identity();
-  bbox = new BoundingBox(Point3(0,0,0), 1.0, 1.0, 1.0); // unit cube
+  bbox = shared_ptr<BoundingBox>(new BoundingBox(Point3(0,0,0), 1.0, 1.0, 1.0)); // unit cube
 }
 
 GameAsset::GameAsset() {

@@ -12,10 +12,10 @@ class TriangularPyramidAsset : public GameAsset {
 
   virtual void update();
   virtual void draw();
-  void setInterpolator(IInterpolator * li);
+  void setInterpolator(shared_ptr<IInterpolator> li);
  private:
-  IInterpolator *li;
-  Point3 * pos;
+  shared_ptr<IInterpolator> li;
+  shared_ptr<Point3>        pos;
 };
 
 #endif // TRIANGULARPYRAMIDASSET_H_
