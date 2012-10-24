@@ -5,6 +5,7 @@
 #include <iostream>
 #include <fstream>
 #include <vector>
+#include <memory>
 
 #include "GameAsset.h"
 #include "Md2Asset.h"
@@ -17,7 +18,7 @@ using namespace std;
 #define RUN_GRAPHICS_DISPLAY 0x00;
 
 string filename = "data/ogre.md2";
-vector<GameAsset *> assets;
+vector<shared_ptr<GameAsset> > assets;
 
 /*
  * SDL timers run in separate threads.  In the timer thread
@@ -41,20 +42,20 @@ void display() {
 
   // This O(n + n^2 + n) sequence of loops is written for clarity,
   // not efficiency
-  for(std::vector<GameAsset *>::iterator it = assets.begin(); it != assets.end(); ++it) {
-    (*it)->update();
+  for(shared_ptr<GameAsset> it : assets) {
+    it->update();
   }
 
-  for(std::vector<GameAsset *>::iterator i = assets.begin(); i != assets.end(); ++i) {
-    for(std::vector<GameAsset *>::iterator j = assets.begin(); j != assets.end(); ++j) {
-      if(*i != *j && (*i)->collidesWith(**j)) {
+  for(shared_ptr<GameAsset> i : assets) {
+    for(shared_ptr<GameAsset> j : assets) {
+      if((i != j) && i->collidesWith(*j)) {
 	cout << "We have a collision"  << endl;
       }
     }
   }
 
-  for(std::vector<GameAsset *>::iterator it = assets.begin(); it != assets.end(); ++it) {
-    (*it)->draw();
+  for(shared_ptr<GameAsset> it : assets) {
+    it->draw();
   }
   
   // Don't forget to swap the buffers
@@ -92,12 +93,8 @@ int main(int argc, char ** argv) {
 	  return 1;
 	}
 
-	Vector3 launch(5.0f, 70.7f, 0.0f);
-	BallisticInterpolator * li = new BallisticInterpolator(launch, 60);
-	TriangularPyramidAsset * p = new TriangularPyramidAsset(0, 0, 3);
-	//p->setInterpolator(li);
+	shared_ptr<GameAsset> p = shared_ptr<GameAsset> (new TriangularPyramidAsset(0, 0, 3));
 	assets.push_back(p);
-	assets.push_back( new TriangularPyramidAsset(-1.0, 0, 3));
 
 	// Call the function "display" every delay milliseconds
 	SDL_AddTimer(delay, display, NULL);
