@@ -15,7 +15,6 @@ class TriangularPyramidAsset : public GameAsset {
   void setInterpolator(shared_ptr<IInterpolator> li);
  private:
   shared_ptr<IInterpolator> li;
-  shared_ptr<Point3>        pos;
 };
 
 #endif // TRIANGULARPYRAMIDASSET_H_

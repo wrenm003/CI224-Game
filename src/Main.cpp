@@ -20,6 +20,8 @@ using namespace std;
 string filename = "data/ogre.md2";
 vector<shared_ptr<GameAsset> > assets;
 
+bool horrible_global_go = false;
+
 /*
  * SDL timers run in separate threads.  In the timer thread
  * push an event onto the event queue.  This event signifies
@@ -43,7 +45,7 @@ void display() {
   // This O(n + n^2 + n) sequence of loops is written for clarity,
   // not efficiency
   for(auto it : assets) {
-    it->update();
+    if(horrible_global_go) {it->update();}
   }
 
   for(auto i : assets) {
@@ -93,8 +95,21 @@ int main(int argc, char ** argv) {
 	  return 1;
 	}
 
-	shared_ptr<GameAsset> p = shared_ptr<GameAsset> (new TriangularPyramidAsset(0, 0, 3));
+
+	shared_ptr<TriangularPyramidAsset> p = shared_ptr<TriangularPyramidAsset> (new TriangularPyramidAsset(0, 0, 0));
+	shared_ptr<IInterpolator> i = shared_ptr<IInterpolator>(new BallisticInterpolator(Vector3(7.0, 7.0, 0), 60));
+	p->setInterpolator(i);
 	assets.push_back(p);
+
+	assets.push_back(shared_ptr<TriangularPyramidAsset> (new TriangularPyramidAsset(10, 0, 0)));
+	assets.push_back(shared_ptr<TriangularPyramidAsset> (new TriangularPyramidAsset(12, 0, 0)));
+	assets.push_back(shared_ptr<TriangularPyramidAsset> (new TriangularPyramidAsset(14, 0, 0)));
+
+	// Set the camera
+	//Camera::getInstance().lookAt(Point3(0.0, 0.0, -10.0), Point3(0.0, 0.0, -1.0), Vector3(0.0, 1.0, 0.0));
+	//  Camera::getInstance().setCamera(Camera::getInstance().getCameraM() * Matrix4::translation(Vector3(-10.0, 0.0, 20.0)));
+	//	display();
+	//	Camera::getInstance().setCamera(Matrix4::identity());
 
 	// Call the function "display" every delay milliseconds
 	SDL_AddTimer(delay, display, NULL);
@@ -107,10 +122,10 @@ int main(int argc, char ** argv) {
 			  SDL_Quit();
 			  break;
 			case SDL_USEREVENT:
-				display();
-				break;
+			  display();
+			  break;
 			case SDL_KEYUP:
-			  Camera::getInstance().setCamera(Matrix4::identity());
+			  //			  Camera::getInstance().setCamera(Matrix4::identity());
 			  break;
 			case SDL_KEYDOWN:
 			  Matrix4 camera = Camera::getInstance().getCameraM();
@@ -127,6 +142,8 @@ int main(int argc, char ** argv) {
 			  case SDLK_DOWN:
 			    Camera::getInstance().setCamera(camera * Matrix4::translation(Vector3(0.0, 0.0, 1.0)) );
 			    break;
+			  case SDLK_g:
+			    horrible_global_go = true;
 			  default:
 			    break;
 			  }

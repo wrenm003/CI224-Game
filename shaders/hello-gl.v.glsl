@@ -2,7 +2,7 @@
 
 attribute vec3 position;
 
-uniform mat4 mv_matrix;
+uniform vec4 tx;
 
 mat4 view_frustum(
     float angle_of_view,
@@ -50,7 +50,6 @@ mat4 rotate_y(float theta)
 
 void main()
 {
-    gl_Position = view_frustum(radians(45.0), 4.0/3.0, 0.5, 100.0)
-		* mv_matrix
-    		* vec4(position.x, position.y, position.z, 1.0) ;
+    gl_Position = view_frustum(radians(45.0), 4.0/3.0, 0.1, 1000.0)
+		* (tx + vec4(position.x, position.y, position.z, 1.0));
 }

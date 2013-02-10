@@ -8,7 +8,6 @@
 #include "GameAsset.h"
 
 void GameAsset::common_init() {
-  mv_matrix = Matrix4::identity();
   bbox = shared_ptr<BoundingBox>(new BoundingBox(Point3(0,0,0), 1.0, 1.0, 1.0)); // unit cube
 }
 
@@ -35,16 +34,13 @@ bool GameAsset::collidesWith(GameAsset & a ) {
 void GameAsset::draw() {
   glUseProgram(program);
 
-  mv_matrix = Camera::getInstance().getCameraM() * mv_matrix;
+  
+  Vector4 tx = Camera::getInstance().getCameraM() * *(bbox->getCentre());
+  float tx_unpacked[] = {tx.getX(), tx.getY(), tx.getZ(), tx.getW()};
 
-  // horribe unpacking
-  GLfloat foo [16] = {
-    mv_matrix.getElem(0,0), mv_matrix.getElem(0,1), mv_matrix.getElem(0,2), mv_matrix.getElem(0,3),
-    mv_matrix.getElem(1,0), mv_matrix.getElem(1,1), mv_matrix.getElem(1,2), mv_matrix.getElem(1,3),
-    mv_matrix.getElem(2,0), mv_matrix.getElem(2,1), mv_matrix.getElem(2,2), mv_matrix.getElem(2,3),
-    mv_matrix.getElem(3,0), mv_matrix.getElem(3,1), mv_matrix.getElem(3,2), mv_matrix.getElem(3,3)
-  };
-  glUniformMatrix4fv(mv_matrix_uniform, 1, false, foo);
+  //  std::cout << "tx.x " << tx.getX() << "\ttx.y " << tx.getY() << "\t tx.z " << tx.getZ() << std::endl;
+  
+  glUniform4fv(tx_uniform, 1, tx_unpacked);
 
   glBindBuffer(GL_ARRAY_BUFFER, vertex_buffer);
   glVertexAttribPointer(
@@ -120,7 +116,7 @@ GLuint GameAsset::make_shader(GLenum type, const char *filename)
 
     glGetShaderiv(shader, GL_COMPILE_STATUS, &shader_ok);
     if (!shader_ok) {
-        cerr << "Failed to compile" << filename << " with error code " << shader_ok << endl;
+        cerr << "Failed to compile " << filename << " with error code " << shader_ok << endl;
         glDeleteShader(shader);
         return 0;
     }
@@ -181,7 +177,7 @@ int GameAsset::make_resources(void)
         return 0;
 
     position_attrib = glGetAttribLocation(program, "position");
-    mv_matrix_uniform = glGetUniformLocation(program, "mv_matrix");
+    tx_uniform = glGetUniformLocation(program, "tx");
 
     return 1;
 }

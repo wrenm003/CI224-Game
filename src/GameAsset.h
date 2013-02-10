@@ -45,12 +45,10 @@ protected:
 	GLuint vertex_buffer, element_buffer;
 	GLuint vertex_shader, fragment_shader, program;
 	GLint position_attrib;
-	GLint mv_matrix_uniform;
+	GLint tx_uniform;
 
 	GLfloat * g_vertex_buffer_data;
 	GLushort * g_element_buffer_data;
-
-	Matrix4 mv_matrix;
       
 	// How many vertices/triangles in this model
 	int num_vertices;

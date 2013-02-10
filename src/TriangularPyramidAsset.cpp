@@ -11,7 +11,7 @@ TriangularPyramidAsset::TriangularPyramidAsset()
 
 TriangularPyramidAsset::TriangularPyramidAsset(float x, float y, float z) {
   this->li = nullptr;
-  this->pos = shared_ptr<Point3>(new Point3(x, y, z));
+
   // A default "unit" triangular pyramid
   num_vertices = 4;
   num_triangles = 4;
@@ -50,7 +50,6 @@ TriangularPyramidAsset::TriangularPyramidAsset(float x, float y, float z) {
   g_element_buffer_data[10] = 0;
   g_element_buffer_data[11] = 1;
 
-  mv_matrix = mv_matrix.translation( Vector3(x, y, z));
   bbox.reset();
   bbox = shared_ptr<BoundingBox>(new BoundingBox(Point3(x, y, z), 1.0, 1.0, 1.0));
 
@@ -62,12 +61,21 @@ TriangularPyramidAsset::~TriangularPyramidAsset() {
 }
 
 void TriangularPyramidAsset::update() {
+  if (nullptr != li) {
+    //    std::cout << "x: " << bbox->getCentre()->getX() << "\ty: " << bbox->getCentre()->getY() << "\tz:" << bbox->getCentre()->getZ() << std::endl;
+    shared_ptr<Point3> p = shared_ptr<Point3>(new Point3(this->li->update()));
+
+    bbox.reset();
+    bbox = shared_ptr<BoundingBox>(new BoundingBox(*p, 1.0, 1.0, 1.0));
+  }
 }
 
 void TriangularPyramidAsset::setInterpolator(shared_ptr<IInterpolator> li) {
   this->li.swap(li);
 }
 
+#include <iostream>
 void TriangularPyramidAsset::draw() {
+//  std::cout << "x: " << bbox->getCentre()->getX() << "\ty: " << bbox->getCentre()->getY() << "\tz:" << bbox->getCentre()->getZ() << std::endl;
   GameAsset::draw();
 }

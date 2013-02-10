@@ -2,6 +2,7 @@
 #define BOUNDINGBOX_H_
 
 #include <utility>
+#include <memory>
 
 #include "vectormath/scalar/cpp/vectormath_aos.h"
 
@@ -21,9 +22,11 @@ class BoundingBox {
 
   pair<float,float> projectOntoAxis(const BoundingBox & b, enum AXIS);
 
+  shared_ptr<Point3> getCentre();
+
  private:
   Vector3 h_x, h_y, h_z;
-  Point3 c;
+  shared_ptr<Point3> c;
 };
 
 #endif
