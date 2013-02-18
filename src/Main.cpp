@@ -104,6 +104,7 @@ int main(int argc, char ** argv) {
 	assets.push_back(shared_ptr<TriangularPyramidAsset> (new TriangularPyramidAsset(10, 0, 0)));
 	assets.push_back(shared_ptr<TriangularPyramidAsset> (new TriangularPyramidAsset(12, 0, 0)));
 	assets.push_back(shared_ptr<TriangularPyramidAsset> (new TriangularPyramidAsset(14, 0, 0)));
+	assets.push_back(shared_ptr<Md2Asset> (new Md2Asset(filename)));
 
 	// Set the camera
 	//Camera::getInstance().lookAt(Point3(0.0, 0.0, -10.0), Point3(0.0, 0.0, -1.0), Vector3(0.0, 1.0, 0.0));
