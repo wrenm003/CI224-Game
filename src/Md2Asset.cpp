@@ -25,29 +25,30 @@ void Md2Asset::update() {
 
 void Md2Asset::import_md2_asset(const string &filename) {
 	ifstream md2file;
-	md2file.open(filename.c_str(), ios::in|ios::binary);
+	md2file.open(filename, ios::in|ios::binary);
 
 	// C stuff
 	//md2_header_t * md2header = (struct md2_header_t *)
 	//	malloc(sizeof(struct md2_header_t));
-	// Same in C++
-	unique_ptr<md2_header_t> md2header = unique_ptr<md2_header_t>(new md2_header_t());
+	// Or we could use a stack allocated variable.
+	md2_header_t md2header;
 
 	// it involves evil casting.
-	md2file.read((char *) &(*md2header), sizeof (struct md2_header_t));
+	md2file.read((char *) &md2header, sizeof (struct md2_header_t));
 
-	if ((md2header->ident != 844121161) ||
-			(md2header->version != 8)) {
+	if ((md2header.ident != 844121161) ||
+			(md2header.version != 8)) {
 		/* Error! */
 		cerr << "Error: bad version or identifier" << endl;
 	}
 
 	// Get the triangle data.
+	// TODO: Better to store as a unique_ptr?
 	this->triangles = (md2_triangle_t *)
-			calloc(md2header->num_tris, sizeof (struct md2_triangle_t));
-	this->num_triangles = md2header->num_tris;
-	md2file.seekg(md2header->offset_tris, ios::beg);
-	md2file.read((char *) triangles, sizeof (struct md2_triangle_t) * md2header->num_tris);
+			calloc(md2header.num_tris, sizeof (struct md2_triangle_t));
+	this->num_triangles = md2header.num_tris;
+	md2file.seekg(md2header.offset_tris, ios::beg);
+	md2file.read((char *) triangles, sizeof (struct md2_triangle_t) * md2header.num_tris);
 
 	// Turn the triangle information into an index buffer
 	this->g_element_buffer_data = new GLushort[this->num_triangles * 3]; // 3 vertices per triangle
@@ -61,9 +62,9 @@ void Md2Asset::import_md2_asset(const string &filename) {
 	// Note: this is dangerous, we _really_
 	// should populate the whole structure as documented in
 	// http://tfc.duke.free.fr/coding/md2-specs-en.html
-	this->g_vertex_buffer_data = new GLfloat[md2header->num_vertices * 3]; // 3 points per vertex
+	this->g_vertex_buffer_data = new GLfloat[md2header.num_vertices * 3]; // 3 points per vertex
 
-	md2file.seekg(md2header->offset_frames, ios::beg);
+	md2file.seekg(md2header.offset_frames, ios::beg);
 
 	/* Read first frame data */
 	vec3_t * scale = (vec3_t *) malloc(sizeof(vec3_t));
@@ -79,10 +80,10 @@ void Md2Asset::import_md2_asset(const string &filename) {
 	md2file.read((char *) name, 16);
 	cout << name << endl;
 
-	md2_vertex_t * c_vertices = (md2_vertex_t *) calloc(md2header->num_vertices, sizeof (struct md2_vertex_t));
+	md2_vertex_t * c_vertices = (md2_vertex_t *) calloc(md2header.num_vertices, sizeof (struct md2_vertex_t));
 	md2file.read((char *) c_vertices, (sizeof (struct md2_vertex_t)) *
-			md2header->num_vertices);
-	this->num_vertices = md2header->num_vertices;
+			md2header.num_vertices);
+	this->num_vertices = md2header.num_vertices;
 
 	// Unpack vertices - put them in a 1d array.
 	for(int i=0; i<this->num_vertices;i++) {
@@ -98,9 +99,4 @@ void Md2Asset::import_md2_asset(const string &filename) {
 	free(scale);
 	free(translate);
 	free(name);
-
-	// Not needed when unique_ptr used
-	// free(md2header);
-	// But good practice
-	md2header.reset();
 }
