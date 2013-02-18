@@ -4,6 +4,10 @@ Md2Asset::Md2Asset(const string &filename) {
   
         import_md2_asset(filename);
 
+	// set the bounding box
+	// TODO: make this a non-arbitrary position.  Currently it makes no sense at all.
+	bbox = shared_ptr<BoundingBox>(new BoundingBox(Point3(1.0f, 1.0f, 1.0f), 1.0f, 1.0f, 1.0f));
+
 	// make the objects to display
 	if(0 == make_resources()) {
 	  cout << "Can't make the required OpenGL resources for Md2Asset." << endl;	  
@@ -24,10 +28,13 @@ void Md2Asset::import_md2_asset(const string &filename) {
 	md2file.open(filename.c_str(), ios::in|ios::binary);
 
 	// C stuff
-	md2_header_t * md2header = (struct md2_header_t *)
-		malloc(sizeof(struct md2_header_t));
+	//md2_header_t * md2header = (struct md2_header_t *)
+	//	malloc(sizeof(struct md2_header_t));
+	// Same in C++
+	unique_ptr<md2_header_t> md2header = unique_ptr<md2_header_t>(new md2_header_t());
+
 	// it involves evil casting.
-	md2file.read((char *) md2header, sizeof (struct md2_header_t));
+	md2file.read((char *) &(*md2header), sizeof (struct md2_header_t));
 
 	if ((md2header->ident != 844121161) ||
 			(md2header->version != 8)) {
@@ -91,5 +98,9 @@ void Md2Asset::import_md2_asset(const string &filename) {
 	free(scale);
 	free(translate);
 	free(name);
-	free(md2header);
+
+	// Not needed when unique_ptr used
+	// free(md2header);
+	// But good practice
+	md2header.reset();
 }

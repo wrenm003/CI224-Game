@@ -74,7 +74,6 @@ void TriangularPyramidAsset::setInterpolator(shared_ptr<IInterpolator> li) {
   this->li.swap(li);
 }
 
-#include <iostream>
 void TriangularPyramidAsset::draw() {
 //  std::cout << "x: " << bbox->getCentre()->getX() << "\ty: " << bbox->getCentre()->getY() << "\tz:" << bbox->getCentre()->getZ() << std::endl;
   GameAsset::draw();
