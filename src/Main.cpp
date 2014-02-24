@@ -40,7 +40,7 @@ Uint32 display(Uint32 interval, void *param) {
 
 void display() {
   glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
-  glClear(GL_COLOR_BUFFER_BIT);
+  glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
 
   // This O(n + n^2 + n) sequence of loops is written for clarity,
   // not efficiency
