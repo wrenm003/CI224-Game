@@ -10,7 +10,7 @@ AC_CHECK_HEADER([vectormath/cpp/vectormath_aos.h])
 # Find the following libraries on the system
 PKG_CHECK_MODULES([gl], [gl])
 PKG_CHECK_MODULES([glew], [glew])
-PKG_CHECK_MODULES([sdl], [sdl])
+PKG_CHECK_MODULES([sdl2], [sdl2])
 
 AC_CONFIG_FILES([Makefile
 	src/Makefile])
