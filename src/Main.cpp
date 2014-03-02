@@ -1,7 +1,7 @@
 #define GLEW_STATIC // Easier debugging
 #include <GL/glew.h>
 #include <GL/gl.h>
-#include <SDL/SDL.h>
+#include <SDL2/SDL.h>
 #include <iostream>
 #include <fstream>
 #include <vector>
@@ -21,6 +21,8 @@ string filename = "data/ogre.md2";
 vector<shared_ptr<GameAsset> > assets;
 
 bool horrible_global_go = false;
+
+SDL_Window * window = nullptr;
 
 /*
  * SDL timers run in separate threads.  In the timer thread
@@ -61,14 +63,12 @@ void display() {
   }
   
   // Don't forget to swap the buffers
-  SDL_GL_SwapBuffers();
+  SDL_GL_SwapWindow(window);
 }
 
 int main(int argc, char ** argv) {
-	SDL_Surface * surf;
 	Uint32 width = 640;
 	Uint32 height = 480;
-	Uint32 colour_depth = 16; // in bits
 	Uint32 delay = 1000/60; // in milliseconds
 
 	// Initialise SDL - when using C/C++ it's common to have to
@@ -82,9 +82,17 @@ int main(int argc, char ** argv) {
 	atexit(SDL_Quit);
 
 	// Create a new window with an OpenGL surface
-	if (!(surf = SDL_SetVideoMode(width, height, colour_depth, SDL_OPENGL))) {
-			cout << "Failed to initialise video mode: " << SDL_GetError() << endl;
+	window = SDL_CreateWindow("CI224 - Game", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, width, height, SDL_WINDOW_OPENGL);
+	if (nullptr == window) {
+			cout << "Failed to create SDL window: " << SDL_GetError() << endl;
 			SDL_Quit();
+	}
+
+	SDL_GLContext glContext = SDL_GL_CreateContext(window);
+	if (nullptr == glContext) {
+			cout << "Failed to create OpenGL context: " << SDL_GetError() << endl;
+			SDL_Quit();
+
 	}
 
 	// Initialise GLEW - an easy way to ensure OpenGl 2.0+
