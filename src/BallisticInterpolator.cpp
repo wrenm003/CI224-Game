@@ -1,8 +1,8 @@
 #include "BallisticInterpolator.h"
 
 BallisticInterpolator::BallisticInterpolator(Vector3 launch, int fps) {
-  this->launch = new Vector3(launch);
-  this->G = new Vector3(0.0f, -9.8f, 0.0f);
+  this->launch = make_shared<Vector3>(launch);
+  this->G = make_shared<Vector3>(0.0f, -9.8f, 0.0f);
   this->fps = fps;
   this->count = 1;
 }
