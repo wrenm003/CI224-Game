@@ -5,7 +5,11 @@ Player::Player(): GameAsset()
   Player(0, 0, 0);
 }
 
-Player::Player(float x, float y, float z) {
+Player::Player(float x, float y, float z):GameAsset(
+
+  string("shaders/hello-gl.v.glsl"),
+
+  string("shaders/hello-gl.red.glsl")) {
   //this->li = nullptr;
 
   // A default unit triangle

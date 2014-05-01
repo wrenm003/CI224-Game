@@ -20,7 +20,7 @@ Player::Player(float x, float y, float z):GameAsset(
 //x     y    z
 -0.5,  0.0,  0.0, //F - 0
  0.5,  0.0,  0.0, //F - 1
- 0.0,  0.0,  0.5, //F - 2
+ 0.0,  0.5,  0.0, //F - 2
 }; // three points per vertex
 
   g_element_buffer_data = new GLushort[num_triangles * 3]{

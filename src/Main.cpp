@@ -47,7 +47,6 @@ Uint32 display(Uint32 interval, void *param) {
 void display() {
   glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
   glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
-
 //cube->draw();
 
 
@@ -123,11 +122,11 @@ int main(int argc, char ** argv) {
 	assets.push_back(shared_ptr<Cube> (new Cube(5, 0, 10)));
 	//assets.push_back(shared_ptr<Md2Asset> (new Md2Asset(filename)));
 
-	// Set the camera
+	 //Set the camera
 	//Camera::getInstance().lookAt(Point3(0.0, 0.0, -10.0), Point3(0.0, 0.0, -1.0), Vector3(0.0, 1.0, 0.0));
-	//  Camera::getInstance().setCamera(Camera::getInstance().getCameraM() * Matrix4::translation(Vector3(-10.0, 0.0, 20.0)));
-	//	display();
-	//	Camera::getInstance().setCamera(Matrix4::identity());
+	  Camera::getInstance().setCamera(Camera::getInstance().getCameraM() * Matrix4::translation(Vector3(0.0, -2.0, 4.0)));
+		display();
+		//Camera::getInstance().setCamera(Matrix4::identity());
 
 	// Call the function "display" every delay milliseconds
 	SDL_AddTimer(delay, display, NULL);
