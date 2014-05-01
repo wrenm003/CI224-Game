@@ -14,6 +14,7 @@
 #include "Camera.h"
 
 #include "Cube.h"
+#include "Player.h"
 
 using namespace std;
 
@@ -111,10 +112,11 @@ int main(int argc, char ** argv) {
 
 
 	//cube = shared_ptr<Cube> (new Cube(0, 0, 0));
-	assets.push_back(shared_ptr<TriangularPyramidAsset> (new TriangularPyramidAsset(0, 0, 0)));
+	assets.push_back(shared_ptr<Player> (new Player(0, 0, 0)));
 	//shared_ptr<IInterpolator> i = shared_ptr<IInterpolator>(new BallisticInterpolator(Vector3(7.0, 7.0, 0), 60));
 	//p->setInterpolator(i);
 	//assets.push_back(p);
+	//shared_ptr<Player> test(new Player(0.0,0.0,0.0));
 
 	assets.push_back(shared_ptr<Cube> (new Cube(-5, 0, 10)));
 	assets.push_back(shared_ptr<Cube> (new Cube(0, 0, 10)));

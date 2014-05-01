@@ -161,7 +161,7 @@ Main.o: Main.cpp /usr/include/stdc-predef.h /usr/include/GL/glew.h \
  ../include/vectormath/scalar/cpp/quat_aos.h \
  ../include/vectormath/scalar/cpp/mat_aos.h Camera.h BoundingBox.h \
  Md2Asset.h TriangularPyramidAsset.h IInterpolator.h \
- BallisticInterpolator.h Cube.h
+ BallisticInterpolator.h Cube.h Player.h
 
 /usr/include/stdc-predef.h:
 
@@ -630,3 +630,5 @@ IInterpolator.h:
 BallisticInterpolator.h:
 
 Cube.h:
+
+Player.h:
