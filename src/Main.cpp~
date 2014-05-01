@@ -146,10 +146,10 @@ int main(int argc, char ** argv) {
 			case SDL_KEYDOWN:
 			  Matrix4 camera = Camera::getInstance().getCameraM();
 			  switch(event.key.keysym.sym){
-			  case SDLK_a:
+			  case SDLK_d:
 			    Camera::getInstance().setCamera((camera * Matrix4::translation(Vector3(-1.0,0.0,00))));
 			    break;
-			  case SDLK_d:
+			  case SDLK_a:
 			    Camera::getInstance().setCamera(camera * Matrix4::translation(Vector3(1.0,0.0,0.0)) );
 			    break;
 			  case SDLK_s:
