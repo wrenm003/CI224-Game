@@ -18,7 +18,7 @@
 using namespace std;
 
 #define RUN_GRAPHICS_DISPLAY 0x00;
-shared_ptr<Cube> cube;
+//shared_ptr<Cube> cube;
 
 string filename = "data/ogre.md2";
 vector<shared_ptr<GameAsset> > assets;
@@ -47,7 +47,7 @@ void display() {
   glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
   glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
 
-cube->draw();
+//cube->draw();
 
 
   // This O(n + n^2 + n) sequence of loops is written for clarity,
@@ -110,15 +110,15 @@ int main(int argc, char ** argv) {
 	}
 
 
-	cube = shared_ptr<Cube> (new Cube(0, 0, 0));
-	shared_ptr<TriangularPyramidAsset> p = shared_ptr<TriangularPyramidAsset> (new TriangularPyramidAsset(0, 0, 0));
-	shared_ptr<IInterpolator> i = shared_ptr<IInterpolator>(new BallisticInterpolator(Vector3(7.0, 7.0, 0), 60));
-	p->setInterpolator(i);
-	assets.push_back(p);
+	//cube = shared_ptr<Cube> (new Cube(0, 0, 0));
+	assets.push_back(shared_ptr<TriangularPyramidAsset> (new TriangularPyramidAsset(0, 0, 0)));
+	//shared_ptr<IInterpolator> i = shared_ptr<IInterpolator>(new BallisticInterpolator(Vector3(7.0, 7.0, 0), 60));
+	//p->setInterpolator(i);
+	//assets.push_back(p);
 
-	assets.push_back(shared_ptr<TriangularPyramidAsset> (new TriangularPyramidAsset(10, 0, 0)));
-	assets.push_back(shared_ptr<TriangularPyramidAsset> (new TriangularPyramidAsset(12, 0, 0)));
-	assets.push_back(shared_ptr<TriangularPyramidAsset> (new TriangularPyramidAsset(14, 0, 0)));
+	assets.push_back(shared_ptr<Cube> (new Cube(-5, 0, 10)));
+	assets.push_back(shared_ptr<Cube> (new Cube(0, 0, 10)));
+	assets.push_back(shared_ptr<Cube> (new Cube(5, 0, 10)));
 	//assets.push_back(shared_ptr<Md2Asset> (new Md2Asset(filename)));
 
 	// Set the camera
