@@ -20,7 +20,7 @@ Player::Player(float x, float y, float z):GameAsset(
 //x     y    z
 -0.5,  0.0,  0.0, //F - 0
  0.5,  0.0,  0.0, //F - 1
- 0.0,  0.0,  0.5, //F - 2
+ 0.0,  0.5,  0.0, //F - 2
 }; // three points per vertex
 
   g_element_buffer_data = new GLushort[num_triangles * 3]{
@@ -33,14 +33,21 @@ F0, F1, F2, //front
   bbox.reset();
   bbox = shared_ptr<BoundingBox>(new BoundingBox(Point3(x, y, z), 1.0, 1.0, 1.0));
 
-  make_resources();
+  //make_resources();
 }
 
 Player::~Player() {
   // TODO: do something nice and fun here.
 }
 
+void Player::MoveForward() {
+  shared_ptr<Point3> MvF = this->bbox->getCentre();
+    *MvF = Point3(MvF->getX(), MvF->getY(), (MvF->getZ() + 0.05));
+MvF.reset();
+}
+
 void Player::update() {
+  //Player::MoveForward();
 }
 
 void Player::draw() {

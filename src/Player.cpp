@@ -33,14 +33,21 @@ F0, F1, F2, //front
   bbox.reset();
   bbox = shared_ptr<BoundingBox>(new BoundingBox(Point3(x, y, z), 1.0, 1.0, 1.0));
 
-  make_resources();
+  //make_resources();
 }
 
 Player::~Player() {
   // TODO: do something nice and fun here.
 }
 
+void Player::MoveForward() {
+  shared_ptr<Point3> MvF = this->bbox->getCentre();
+    *MvF = Point3(MvF->getX(), MvF->getY(), (MvF->getZ() + 0.05));
+MvF.reset();
+}
+
 void Player::update() {
+  Player::MoveForward();
 }
 
 void Player::draw() {

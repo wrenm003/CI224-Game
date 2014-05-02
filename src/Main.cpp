@@ -23,6 +23,8 @@ using namespace std;
 
 string filename = "data/ogre.md2";
 vector<shared_ptr<GameAsset> > assets;
+shared_ptr<Player> player;
+vector<shared_ptr<Cube> > cubes;
 
 bool horrible_global_go = false;
 
@@ -48,6 +50,7 @@ void display() {
   glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
   glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
 //cube->draw();
+player->update();
 
 
   // This O(n + n^2 + n) sequence of loops is written for clarity,
@@ -73,9 +76,10 @@ void display() {
 }
 
 int main(int argc, char ** argv) {
-	Uint32 width = 640;
+	SDL_Surface * surf;
+	Uint32 width  = 640;
 	Uint32 height = 480;
-	Uint32 delay = 1000/60; // in milliseconds
+	Uint32 delay  = 1000/60; // in milliseconds
 
 	// Initialise SDL - when using C/C++ it's common to have to
 	// initialise libraries by calling a function within them.
@@ -111,7 +115,7 @@ int main(int argc, char ** argv) {
 
 
 	//cube = shared_ptr<Cube> (new Cube(0, 0, 0));
-	assets.push_back(shared_ptr<Player> (new Player(0, 0, 0)));
+	player = shared_ptr<Player>(new Player(0, 0, 0)	);
 	//shared_ptr<IInterpolator> i = shared_ptr<IInterpolator>(new BallisticInterpolator(Vector3(7.0, 7.0, 0), 60));
 	//p->setInterpolator(i);
 	//assets.push_back(p);
@@ -129,11 +133,11 @@ int main(int argc, char ** argv) {
 		//Camera::getInstance().setCamera(Matrix4::identity());
 
 	// Call the function "display" every delay milliseconds
-	SDL_AddTimer(delay, display, NULL);
+	//SDL_AddTimer(delay, display, NULL);
 
 	// Add the main event loop
 	SDL_Event event;
-	while (SDL_WaitEvent(&event)) {
+	while (SDL_PollEvent(&event)) {
 			switch (event.type) {
 			case SDL_QUIT:
 			  SDL_Quit();
