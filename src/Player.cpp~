@@ -47,7 +47,7 @@ MvF.reset();
 }
 
 void Player::update() {
-  //Player::MoveForward();
+  Player::MoveForward();
 }
 
 void Player::draw() {

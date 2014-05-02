@@ -40,14 +40,8 @@ Player::~Player() {
   // TODO: do something nice and fun here.
 }
 
-void Player::MoveForward() {
-  shared_ptr<Point3> MvF = this->bbox->getCentre();
-    *MvF = Point3(MvF->getX(), MvF->getY(), (MvF->getZ() + 0.05));
-MvF.reset();
-}
 
 void Player::update() {
-  Player::MoveForward();
 }
 
 void Player::draw() {
