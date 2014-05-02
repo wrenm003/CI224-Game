@@ -23,8 +23,10 @@ using namespace std;
 
 string filename = "data/ogre.md2";
 vector<shared_ptr<GameAsset> > assets;
-//shared_ptr<Player> player;
-vector<shared_ptr<Cube> > cubes;
+shared_ptr<Player> player;
+vector<shared_ptr<Cube>> enemies;
+
+int regulator = 0;
 
 bool horrible_global_go = false;
 
@@ -47,13 +49,27 @@ Uint32 display(Uint32 interval, void *param) {
 }
 
 void display() {
+
   glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
   glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
+
+regulator++;
+int r2 = rand () % 2  +4;
+if( fmod(regulator, 40) ==0){
+for (int i=0;i<r2;i++){
+	int r1 = rand () % 50 -25;
+	enemies.push_back(shared_ptr<Cube> (new Cube(r1, 0, 30)));
+	}}
+
 //cube->draw();
-//player->update();
 player->draw();
 
-
+for(auto it : enemies) {
+  it->update();
+}
+for(auto it : enemies) {
+  it->draw();
+}
 
   // This O(n + n^2 + n) sequence of loops is written for clarity,
   // not efficiency
@@ -78,10 +94,9 @@ player->draw();
 }
 
 int main(int argc, char ** argv) {
-	SDL_Surface * surf;
-	Uint32 width  = 640;
+	Uint32 width = 640;
 	Uint32 height = 480;
-	Uint32 delay  = 1000/60; // in milliseconds
+	Uint32 delay = 1000/60; // in milliseconds
 
 	// Initialise SDL - when using C/C++ it's common to have to
 	// initialise libraries by calling a function within them.
@@ -117,15 +132,14 @@ int main(int argc, char ** argv) {
 
 
 	//cube = shared_ptr<Cube> (new Cube(0, 0, 0));
-	//player = shared_ptr<Player>(new Player(0.0, 0.0, 0.0)	);
+	player = shared_ptr<Player> (new Player(0.0,0.0,0.0));
+	//assets.push_back(shared_ptr<Player> (new Player(0, 0, 0)));
 	//shared_ptr<IInterpolator> i = shared_ptr<IInterpolator>(new BallisticInterpolator(Vector3(7.0, 7.0, 0), 60));
 	//p->setInterpolator(i);
 	//assets.push_back(p);
-	shared_ptr<Player> test(new Player(0.0,0.0,0.0));
+	//shared_ptr<Player> test(new Player(0.0,0.0,0.0));
 
-	assets.push_back(shared_ptr<Cube> (new Cube(-5, 0, 10)));
-	assets.push_back(shared_ptr<Cube> (new Cube(0, 0, 10)));
-	assets.push_back(shared_ptr<Cube> (new Cube(5, 0, 10)));
+	
 	//assets.push_back(shared_ptr<Md2Asset> (new Md2Asset(filename)));
 
 	 //Set the camera
@@ -135,13 +149,11 @@ int main(int argc, char ** argv) {
 		//Camera::getInstance().setCamera(Matrix4::identity());
 
 	// Call the function "display" every delay milliseconds
-	//SDL_AddTimer(delay, display, NULL);
+	SDL_AddTimer(delay, display, NULL);
 
 	// Add the main event loop
 	SDL_Event event;
-bool run = true;
-	while (run = true){
-	while (SDL_PollEvent(&event)) {
+	while (SDL_WaitEvent(&event)) {
 			switch (event.type) {
 			case SDL_QUIT:
 			  SDL_Quit();
@@ -155,10 +167,12 @@ bool run = true;
 			case SDL_KEYDOWN:
 			  Matrix4 camera = Camera::getInstance().getCameraM();
 			  switch(event.key.keysym.sym){
-			  case SDLK_a:
+			  case SDLK_d:
+			    //Player->MoveRight();
 			    Camera::getInstance().setCamera((camera * Matrix4::translation(Vector3(-1.0,0.0,00))));
 			    break;
-			  case SDLK_d:
+			  case SDLK_a:
+			    //Player->MoveLeft();
 			    Camera::getInstance().setCamera(camera * Matrix4::translation(Vector3(1.0,0.0,0.0)) );
 			    break;
 			  case SDLK_s:
@@ -181,7 +195,4 @@ bool run = true;
 			  break;
 			}
 	}
-display();
-SDL_Delay(10);
-}
 }

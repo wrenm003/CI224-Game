@@ -1,5 +1,4 @@
 #include "GameAsset.h"
-#include "SDL2/SDL.h"
 
 #ifndef Player_H_
 #define Player_H_
@@ -10,7 +9,8 @@ class Player : public GameAsset {
   Player(float x, float y, float z);
     ~Player();
 
-  void MoveForward();
+  void MoveLeft();
+  void MoveRight();
 
   virtual void update();
   virtual void draw();

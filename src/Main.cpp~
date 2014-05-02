@@ -51,7 +51,7 @@ void display() {
   glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
 //cube->draw();
 //player->update();
-player->draw();
+
 
 
 
@@ -72,6 +72,7 @@ player->draw();
   for(auto it : assets) {
     it->draw();
   }
+player->draw();
   
   // Don't forget to swap the buffers
   SDL_GL_SwapWindow(window);
@@ -117,7 +118,7 @@ int main(int argc, char ** argv) {
 
 
 	//cube = shared_ptr<Cube> (new Cube(0, 0, 0));
-	player = shared_ptr<Player>(new Player(0.0, 0.0, 0.0)	);
+	player = shared_ptr<Player> (new Player(0.0, 0.0, 0.0));
 	//shared_ptr<IInterpolator> i = shared_ptr<IInterpolator>(new BallisticInterpolator(Vector3(7.0, 7.0, 0), 60));
 	//p->setInterpolator(i);
 	//assets.push_back(p);

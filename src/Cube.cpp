@@ -56,7 +56,13 @@ Cube::~Cube() {
   // TODO: do something nice and fun here.
 }
 
+void Cube::MoveForward() {
+  shared_ptr<Point3> F = this->bbox->getCentre();
+    *F = Point3(F->getX(), F->getY(), (F->getZ() - 0.05));
+}
+
 void Cube::update() {
+Cube::MoveForward();
 }
 
 void Cube::draw() {

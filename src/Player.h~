@@ -9,6 +9,7 @@ class Player : public GameAsset {
   Player();
   Player(float x, float y, float z);
     ~Player();
+
   void MoveForward();
 
   virtual void update();

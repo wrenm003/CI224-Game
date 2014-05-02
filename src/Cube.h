@@ -9,6 +9,8 @@ class Cube : public GameAsset {
   Cube(float x, float y, float z);
     ~Cube();
 
+  void MoveForward();
+
   virtual void update();
   virtual void draw();
   virtual void clean();
