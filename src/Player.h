@@ -17,7 +17,7 @@ class Player : public GameAsset {
   virtual void clean();
 
   enum vertices {
-F0, F1, F2, F3, };
+  F0, F1, F2, F3, };
 
  private:
 };

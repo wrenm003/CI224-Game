@@ -13,20 +13,23 @@ Player::Player(float x, float y, float z):GameAsset(
   //this->li = nullptr;
 
   // A default unit triangle
-  num_vertices = 3;
-  num_triangles = 1;
+  num_vertices = 4;
+  num_triangles = 4;
   g_vertex_buffer_data = new GLfloat[num_vertices * 3]{
 
 //x     y    z
--0.5,  0.0,  0.0, //F - 0
- 0.5,  0.0,  0.0, //F - 1
- 0.0,  0.5,  0.0, //F - 2
+-0.5, -0.5, -0.5, //F - 0  //base of the triangle player
+ 0.5, -0.5, -0.5, //F - 1
+ 0.0, -0.5,  0.5, //F - 2
+ 0.0,  0.0,  0.0, //F - 3  //top point og the triangle player
 }; // three points per vertex
 
   g_element_buffer_data = new GLushort[num_triangles * 3]{
 
-F0, F1, F2, //front
-
+F0, F1, F2,   //Base
+F0, F1, F3,   //Back
+F1, F2, F3,   //RightSide
+F2, F0, F0    //LeftSide
 
 }; // three vertices per triangle
 

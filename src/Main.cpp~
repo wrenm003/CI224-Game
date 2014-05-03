@@ -24,7 +24,7 @@ using namespace std;
 string filename = "data/ogre.md2";
 vector<shared_ptr<GameAsset> > assets;
 shared_ptr<Player> player;
-vector<shared_ptr<Cube>> enemies;
+vector<shared_ptr<Cube> > enemies;
 
 int regulator = 0;
 
@@ -76,6 +76,18 @@ for(auto it : enemies) {
   for(auto it : assets) {
     if(horrible_global_go) {it->update();}
   }
+
+ for(auto i : enemies) { 
+    if( i->collidesWith(*player)){
+      SDL_Quit();
+    }
+  }
+ for(auto it : enemies) { 
+ // it(it->bbox->getCentre()->getZ() < 10);{
+   //it->clean();
+   dad//}
+  }
+
 
   for(auto i : assets) {
     for(auto j : assets) {
@@ -175,7 +187,7 @@ int main(int argc, char ** argv) {
 			    player->MoveLeft();
 			    Camera::getInstance().setCamera(camera * Matrix4::translation(Vector3(1.0,0.0,0.0)) );
 			    break;
-			  case SDLK_s:
+			  /*case SDLK_s:
 			    Camera::getInstance().setCamera(camera * Matrix4::translation(Vector3(0.0,-1.0,0.0)) );
 			    break;
 			  case SDLK_w:
@@ -186,7 +198,7 @@ int main(int argc, char ** argv) {
 			    break;
 			  case SDLK_DOWN:
 			    Camera::getInstance().setCamera(camera * Matrix4::translation(Vector3(0.0, 0.0, 1.0)) );
-			    break;
+			    break;*/
 			  case SDLK_g:
 			    horrible_global_go = true;
 			  default:

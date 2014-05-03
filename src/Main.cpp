@@ -24,7 +24,7 @@ using namespace std;
 string filename = "data/ogre.md2";
 vector<shared_ptr<GameAsset> > assets;
 shared_ptr<Player> player;
-vector<shared_ptr<Cube>> enemies;
+vector<shared_ptr<Cube> > enemies;
 
 int regulator = 0;
 
@@ -76,6 +76,18 @@ for(auto it : enemies) {
   for(auto it : assets) {
     if(horrible_global_go) {it->update();}
   }
+
+ for(auto i : enemies) { 
+    if( i->collidesWith(*player)){
+      SDL_Quit();
+    }
+  }
+ for(auto it : enemies) { 
+  it(it->bbox->getCentre()->getZ() < 10);{
+   it->clean();
+   }
+  }
+
 
   for(auto i : assets) {
     for(auto j : assets) {

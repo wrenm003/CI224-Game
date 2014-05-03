@@ -14,20 +14,18 @@ Player::Player(float x, float y, float z):GameAsset(
 
   // A default unit triangle
   num_vertices = 3;
-  num_triangles = 2;
+  num_triangles = 1;
   g_vertex_buffer_data = new GLfloat[num_vertices * 3]{
 
 //x     y    z
 -0.5,  0.0,  0.0, //F - 0
  0.5,  0.0,  0.0, //F - 1
- 0.0,  0.5,  0.0 //F - 2
+ 0.0,  0.5,  0.0, //F - 2
 }; // three points per vertex
 
   g_element_buffer_data = new GLushort[num_triangles * 3]{
 
 F0, F1, F2, //front
-
-F2, F1, F0
 
 
 }; // three vertices per triangle
@@ -35,13 +33,21 @@ F2, F1, F0
   bbox.reset();
   bbox = shared_ptr<BoundingBox>(new BoundingBox(Point3(x, y, z), 1.0, 1.0, 1.0));
 
-  //make_resources();
+  make_resources();
 }
 
 Player::~Player() {
   // TODO: do something nice and fun here.
 }
 
+void Player::MoveLeft() {
+  shared_ptr<Point3> L = this->bbox->getCentre();
+    *L = Point3(L->getX()-1, L->getY(), (L->getZ()));
+}
+void Player::MoveRight() {
+  shared_ptr<Point3> R = this->bbox->getCentre();
+    *R = Point3((R->getX() + 1), R->getY(), R->getZ());
+}  
 
 void Player::update() {
 }

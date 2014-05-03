@@ -1,11 +1,11 @@
-#include "CubeAsset.h"
+#include "Cube.h"
 
-CubeAsset::CubeAsset(): GameAsset()
+Cube::Cube(): GameAsset()
 {
-  CubeAsset(0, 0, 0);
+  Cube(0, 0, 0);
 }
 
-CubeAsset::CubeAsset(float x, float y, float z) {
+Cube::Cube(float x, float y, float z) {
   //this->li = nullptr;
 
   // A default unit cube
@@ -52,15 +52,21 @@ R2, F1, F0
   make_resources();
 }
 
-CubeAsset::~CubeAsset() {
+Cube::~Cube() {
   // TODO: do something nice and fun here.
 }
 
-void CubeAsset::update() {
+void Cube::MoveForward() {
+  shared_ptr<Point3> F = this->bbox->getCentre();
+    *F = Point3(F->getX(), F->getY(), (F->getZ() - 0.05));
 }
 
-void CubeAsset::draw() {
+void Cube::update() {
+Cube::MoveForward();
+}
+
+void Cube::draw() {
   GameAsset::draw();
 }
 
-void CubeAsset::clean() { } 
+void Cube::clean() { } 
