@@ -168,14 +168,14 @@ int main(int argc, char ** argv) {
 			  Matrix4 camera = Camera::getInstance().getCameraM();
 			  switch(event.key.keysym.sym){
 			  case SDLK_d:
-			    //Player->MoveRight();
+			    player->MoveRight();
 			    Camera::getInstance().setCamera((camera * Matrix4::translation(Vector3(-1.0,0.0,00))));
 			    break;
 			  case SDLK_a:
-			    //Player->MoveLeft();
+			    player->MoveLeft();
 			    Camera::getInstance().setCamera(camera * Matrix4::translation(Vector3(1.0,0.0,0.0)) );
 			    break;
-			  case SDLK_s:
+			  /*case SDLK_s:
 			    Camera::getInstance().setCamera(camera * Matrix4::translation(Vector3(0.0,-1.0,0.0)) );
 			    break;
 			  case SDLK_w:
@@ -186,7 +186,7 @@ int main(int argc, char ** argv) {
 			    break;
 			  case SDLK_DOWN:
 			    Camera::getInstance().setCamera(camera * Matrix4::translation(Vector3(0.0, 0.0, 1.0)) );
-			    break;
+			    break;*/
 			  case SDLK_g:
 			    horrible_global_go = true;
 			  default:
