@@ -70,6 +70,10 @@ for(auto it : enemies) {
 for(auto it : enemies) {
   it->draw();
 }
+for(auto it : enemies){
+shared_ptr<Point3> Z = it->bbox->getCentre();
+    *Z = Point3((Z->getZ()));
+}
 
   // This O(n + n^2 + n) sequence of loops is written for clarity,
   // not efficiency
@@ -83,9 +87,9 @@ for(auto it : enemies) {
     }
   }
  for(auto it : enemies) { 
- // it(it->bbox->getCentre()->getZ() < 10);{
-   //it->clean();
-   dad//}
+  if(it->bbox->getCentre()->getZ() < 10);{
+   it->clean();
+   }
   }
 
 

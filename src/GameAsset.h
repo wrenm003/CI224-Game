@@ -32,6 +32,7 @@ public:
 
 	virtual void draw();
 	virtual void update()=0;
+	shared_ptr<BoundingBox> bbox;
 
 protected:
 	/* functions */
@@ -54,7 +55,7 @@ protected:
 	int num_vertices;
 	int num_triangles;
 
-	shared_ptr<BoundingBox> bbox;
+	
 
  private:
 	void common_init(); // because we don't have delegating constructors yet (http://gcc.gnu.org/projects/cxx0x.html)

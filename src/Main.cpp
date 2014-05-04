@@ -71,6 +71,7 @@ for(auto it : enemies) {
   it->draw();
 }
 
+
   // This O(n + n^2 + n) sequence of loops is written for clarity,
   // not efficiency
   for(auto it : assets) {
@@ -83,7 +84,7 @@ for(auto it : enemies) {
     }
   }
  for(auto it : enemies) { 
-  it(it->bbox->getCentre()->getZ() < 10);{
+  if(it->bbox->getCentre()->getZ() < 10);{
    it->clean();
    }
   }
